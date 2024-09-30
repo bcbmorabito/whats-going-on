@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What's Going On</title>
+    <script src="https://unpkg.com/htmx.org"></script>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body class="container mt-5">
+    <h1>What's Going On</h1>
+
+    <form hx-post="/events/scrape" hx-target="#event-grid tbody" hx-swap="innerHTML">
+        <select name="site" class="form-select mb-3">
+            <option value="all">All Venues</option>
+            <option value="met">The Met Philly</option>
+            <option value="mann">The Mann Center</option>
+        </select>
+        <button type="submit" class="btn btn-primary" id="scrapeButton">
+            Show Events
+        </button>
+        <span id="loadingIndicator" style="display: none;">Loading...</span>
+    </form>
+
+    <table class="table mt-4" id="event-grid">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Event</th>
+                <th>Tagline</th>
+                <th>Image</th>
+                <th>Link</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Event rows dynamically inserted here -->
+        </tbody>
+    </table>
+    <script>
+        
+        document.addEventListener("htmx:configRequest", function(event) {
+            const button = document.getElementById("scrapeButton");
+            const loadingIndicator = document.getElementById("loadingIndicator");
+            button.disabled = true;
+            loadingIndicator.style.display = "inline"; 
+            loadingIndicator.style.fontFamily = "monospace";
+            loadingIndicator.style.color = "#0B1E2D";
+            loadingIndicator.style.margin = "2rem";
+            loadingIndicator.style.fontSize = "1.5rem";
+        });
+
+        document.addEventListener("htmx:load", function(event) {
+            const button = document.getElementById("scrapeButton");
+            const loadingIndicator = document.getElementById("loadingIndicator");
+            button.disabled = false;
+            loadingIndicator.style.display = "none"; 
+        });
+    </script>
+</body>
+</html>

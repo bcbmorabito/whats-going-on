@@ -1,0 +1,17 @@
+<% events.forEach(event => { %>
+<tr>
+  <td><%= event.date %></td>
+  <td><%= event.title %></td>
+  <td><%= event.subtitle || 'N/A' %></td>
+  <td>
+    <img
+      src="<%= event.imageUrl %>"
+      alt="<%= event.title %> image"
+      style="width: 100px; height: auto"
+    />
+  </td>
+  <td>
+    <a href="<%= event.link %>" target="_blank">Event Link</a>
+  </td>
+</tr>
+<% }) %>

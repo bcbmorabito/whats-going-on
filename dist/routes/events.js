@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const metScraper_1 = require("../handlers/metScraper");
 const mannScraper_1 = require("../handlers/mannScraper");
+const formatDate_1 = require("../util/formatDate");
 const router = express_1.default.Router();
 router.post("/scrape", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { site } = req.body;
@@ -43,6 +44,6 @@ router.post("/scrape", (req, res) => __awaiter(void 0, void 0, void 0, function*
 const scrapeAllVenues = () => __awaiter(void 0, void 0, void 0, function* () {
     const metEvents = yield (0, metScraper_1.scrapeTheMetPhillyEvents)();
     const mannEvents = yield (0, mannScraper_1.scrapeMannCenterEvents)();
-    return [...metEvents, ...mannEvents];
+    return (0, formatDate_1.sortEventsByDate)([...metEvents, ...mannEvents]);
 });
 exports.default = router;

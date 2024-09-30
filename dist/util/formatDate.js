@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.formatDate = formatDate;
+exports.sortEventsByDate = sortEventsByDate;
 /**
  * Formats a date string to "DD Month" format.
  * @param dateString - The input date string to format.
@@ -9,11 +10,24 @@ exports.formatDate = formatDate;
 function formatDate(dateString) {
     if (dateString === undefined || dateString === null)
         return '';
-    const date = new Date(dateString);
-    // Check if the date is valid
+    const cleanDateString = dateString.replace(/(\d+)(st|nd|rd|th)/, '$1');
+    const date = new Date(cleanDateString);
     if (isNaN(date.getTime())) {
-        return '';
+        throw new Error("Invalid date string");
     }
-    const options = { day: '2-digit', month: 'long' };
+    console.log(date, dateString);
+    const options = { month: '2-digit', day: '2-digit' };
     return date.toLocaleDateString('en-US', options);
+}
+function sortEventsByDate(events) {
+    const cleanEvents = events.map((e) => {
+        if (!e.date)
+            e.date = '2099-12-31';
+        return e;
+    });
+    return cleanEvents.sort((a, b) => {
+        const dateA = new Date(a.date);
+        const dateB = new Date(b.date);
+        return dateA.getTime() - dateB.getTime();
+    });
 }

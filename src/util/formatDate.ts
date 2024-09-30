@@ -14,10 +14,12 @@ export function formatDate(dateString: string | undefined | null): string {
     if (isNaN(date.getTime())) {
         throw new Error("Invalid date string");
     }
+    const currentYear = new Date().getFullYear();
+    if (date.getFullYear() < currentYear) date.setFullYear(currentYear)
 
     console.log(date, dateString)
 
-    const options: Intl.DateTimeFormatOptions = { month: '2-digit', day: '2-digit' };
+    const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: '2-digit', day: '2-digit' };
     return date.toLocaleDateString('en-US', options);
 }
 

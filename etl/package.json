@@ -1,0 +1,20 @@
+{
+  "name": "whats-going-on-etl",
+  "version": "1.0.0",
+  "description": "ETL lambda scrapes venue sites and updates db",
+  "main": "index.ts",
+  "scripts": {
+    "test": "npx jest --silent --coverage",
+    "build": "npx tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.7",
+    "knex": "^3.1.0",
+    "playwright": "^1.47.2",
+    "sqlite3": "^5.1.7"
+  }
+}

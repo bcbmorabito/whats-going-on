@@ -6,7 +6,7 @@ export const handler = async () => {
     await load()
   }
 
-const apiUrl: string = 'http://100.24.52.180/mutate'
+const apiUrl: string = 'http://100.24.52.180/update'
 
 const load = async (): Promise<boolean> => {
     try {

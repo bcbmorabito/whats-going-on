@@ -20,7 +20,7 @@ const handler = () => __awaiter(void 0, void 0, void 0, function* () {
     yield load();
 });
 exports.handler = handler;
-const apiUrl = 'http:localhost:3000/mutate';
+const apiUrl = 'http://100.24.52.180/update';
 const load = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const res = yield axios_1.default.post(apiUrl, [

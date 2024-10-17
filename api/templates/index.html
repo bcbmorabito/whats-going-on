@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What's Going On</title>
+    <script src="https://unpkg.com/htmx.org"></script>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body class="container mt-5">
+    <h1>What's Going On</h1>
+    <form hx-post="/events" hx-target="#event-grid tbody" hx-swap="innerHTML">
+        <select name="venue" class="form-select mb-3">
+            <option value="all">All Venues</option>
+            <option value="met">The Met Philly</option>
+            <option value="mann">The Mann Center</option>
+        </select>
+        <button type="submit" class="btn btn-primary" id="scrapeButton">Show Events</button>
+        <span id="loadingIndicator" style="display: none;">Loading...</span>
+    </form>
+
+    <table class="table mt-4" id="event-grid">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Event</th>
+                <th>Tagline</th>
+                <th>Image</th>
+                <th>Link</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Event rows -->
+        </tbody>
+    </table>
+</body>
+</html>

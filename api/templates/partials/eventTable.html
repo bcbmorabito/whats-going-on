@@ -1,0 +1,9 @@
+{{range .}}
+<tr>
+    <td>{{.Date}}</td>
+    <td>{{.Title}}</td>
+    <td>{{.Subtitle}}</td>
+    <td>{{if .ImageUrl}}<img src="{{.ImageUrl}}" alt="Event Image" style="width: 100px;">{{end}}</td>
+    <td><a href="{{.Link}}">Event Link</a></td>
+</tr>
+{{end}}

@@ -35,7 +35,8 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func eventsHandler(w http.ResponseWriter, r *http.Request) {
-    venue := r.FormValue("venue")
+	venue := r.FormValue("venue")
+
 	log.Println(venue)
 	dir, err := os.Getwd()
 	if err != nil {
@@ -52,8 +53,13 @@ func eventsHandler(w http.ResponseWriter, r *http.Request) {
 	 SELECT date, title, subtitle, imageUrl, link, venue 
 	 FROM t_events
 	 WHERE venue = ?`
-
-	rows, err := db.Query(query, venue)
+	if venue == "all" {
+		query = `
+			SELECT date, title, subtitle, imageUrl, link, venue 
+			FROM t_events`
+		venue = ""
+	}
+	rows, err := queryDb(query, venue, db)
 	if err != nil {
 		log.Fatalf("Error querying events: %v", err)
 	}
@@ -83,6 +89,12 @@ func eventsHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func queryDb(query string, venue string, db *sql.DB) (*sql.Rows, error){
+	if venue == "" {
+		return db.Query(query)
+	}
+	return db.Query(query,venue)
+}
 func insertEvents(w http.ResponseWriter, r *http.Request) {
 	var events []models.EventData
 	log.Println(events)
